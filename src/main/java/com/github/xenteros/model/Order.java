@@ -24,7 +24,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "order_product", joinColumns = {
             @JoinColumn(name = "ORDER_ID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "PRODUCT_ID",
