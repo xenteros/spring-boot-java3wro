@@ -1,14 +1,13 @@
 package com.github.xenteros.controller;
 
+import com.github.xenteros.model.User;
 import com.github.xenteros.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,7 +35,12 @@ public class HelloWorldController {
     public String hello() {
 
             final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//            final Object principal = auth.getPrincipal();
+            final Object principal = auth.getPrincipal();
+            if (principal != null && principal instanceof User) {
+                User user = (User) principal;
+                return "Hello " + user.getAuthority().toString() + " " +
+                        user.getUsername();
+            }
         return "Hello " + auth.getName();
     }
 }

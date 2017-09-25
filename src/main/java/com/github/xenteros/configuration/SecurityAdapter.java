@@ -1,12 +1,13 @@
 package com.github.xenteros.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.xenteros.security.UserDetailsServiceImpl;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by agurgul on 25.09.2017.
@@ -21,6 +22,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
+                .antMatchers("/api/users").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/hello-user").authenticated()
@@ -46,12 +48,18 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/hello");
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN")
-                .and()
-                .withUser("user").password("user").roles("USER");
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password("admin").roles("ADMIN")
+//                .and()
+//                .withUser("user").password("user").roles("USER");
+//    }
+
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
     }
 
 
