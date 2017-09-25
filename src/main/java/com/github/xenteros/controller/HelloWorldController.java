@@ -3,6 +3,8 @@ package com.github.xenteros.controller;
 import com.github.xenteros.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,10 +33,10 @@ public class HelloWorldController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String helloParam(@RequestParam(
-            value = "name",
-            required = false,
-            defaultValue = "anonymous") String name) {
-        return "Hello " + name;
+    public String hello() {
+
+            final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//            final Object principal = auth.getPrincipal();
+        return "Hello " + auth.getName();
     }
 }
