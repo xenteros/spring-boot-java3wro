@@ -1,6 +1,6 @@
 package com.github.xenteros.model;
 
-import com.github.xenteros.Authority;
+import com.github.xenteros.enums.Authority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

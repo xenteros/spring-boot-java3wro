@@ -1,5 +1,6 @@
 package com.github.xenteros.configuration;
 
+import com.github.xenteros.enums.Authority;
 import com.github.xenteros.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,8 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/hello-user").authenticated()
-                .antMatchers("/admin.html").hasRole("ADMIN")
-                .antMatchers("/user.html").hasRole("USER")
+                .antMatchers("/admin.html").hasAuthority(Authority.ADMIN.getAuthority())
+                .antMatchers("/user.html").hasAuthority(Authority.USER.getAuthority())
                 .antMatchers("/login.html").permitAll()
                 .anyRequest().authenticated();
         http.httpBasic();

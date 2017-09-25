@@ -1,4 +1,4 @@
-package com.github.xenteros;
+package com.github.xenteros.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 
