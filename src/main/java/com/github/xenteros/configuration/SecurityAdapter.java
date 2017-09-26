@@ -35,7 +35,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user.html").hasAuthority(Authority.USER.getAuthority())
                 .antMatchers("/login.html").permitAll()
                 .anyRequest().authenticated();
-        http.httpBasic();
+//        http.httpBasic();
 
         http
                 .formLogin()
