@@ -3,6 +3,7 @@ package com.github.xenteros.controller;
 import com.github.xenteros.model.User;
 import com.github.xenteros.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAuthority(T(com.github.xenteros.enums.Authority).ADMIN)")
     @PutMapping
     public User createUser(@RequestBody User user) {
         return userService.create(user);
